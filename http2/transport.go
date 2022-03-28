@@ -11,7 +11,6 @@ import (
 	"bytes"
 	"context"
 	"crypto/rand"
-	tls "github.com/Carcraftz/utls"
 	"errors"
 	"fmt"
 	"io"
@@ -27,6 +26,8 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	tls "github.com/Carcraftz/utls"
 
 	http "github.com/nf066/fhttp"
 	"github.com/nf066/fhttp/httptrace"
@@ -1642,13 +1643,13 @@ func (cc *ClientConn) encodeHeaders(req *http.Request, trailers string, contentL
 		// Should clone, because this function is called twice; to read and to write.
 		// If headers are added to the req, then headers would be added twice.
 		hdrs := req.Header.Clone()
-		if _, ok := req.Header["content-length"]; !ok && shouldSendReqContentLength(req.Method, contentLength) {
-			hdrs["content-length"] = []string{strconv.FormatInt(contentLength, 10)}
+		if _, ok := req.Header["Content-Length"]; !ok && shouldSendReqContentLength(req.Method, contentLength) {
+			hdrs["Content-Length"] = []string{strconv.FormatInt(contentLength, 10)}
 		}
 
 		// Does not include accept-encoding header if its defined in req.Header
-		if _, ok := hdrs["accept-encoding"]; !ok {
-			hdrs["accept-encoding"] = []string{"gzip, deflate, br"}
+		if _, ok := hdrs["Accept-Encoding"]; !ok {
+			hdrs["Accept-Encoding"] = []string{"gzip, deflate, br"}
 		}
 
 		// Formats and writes headers with f function
