@@ -6,8 +6,8 @@ import (
 	"crypto/x509"
 	"errors"
 	"fmt"
-	"github.com/Carcraftz/fhttp/cookiejar"
-	"github.com/Carcraftz/fhttp/httptest"
+	"github.com/nf066/fhttp/cookiejar"
+	"github.com/nf066/fhttp/httptest"
 	"golang.org/x/net/publicsuffix"
 	"log"
 	ghttp "net/http"
@@ -16,8 +16,8 @@ import (
 	"strings"
 	"testing"
 
-	http "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/http2"
+	http "github.com/nf066/fhttp"
+	"github.com/nf066/fhttp/http2"
 )
 
 // Tests if connection settings are written correctly

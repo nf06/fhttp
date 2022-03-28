@@ -12,7 +12,7 @@ import (
 	"os"
 	"os/signal"
 
-	http "github.com/Carcraftz/fhttp"
+	http "github.com/nf066/fhttp"
 )
 
 func ExampleHijacker() {

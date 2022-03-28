@@ -11,9 +11,9 @@ import (
 	"net/url"
 	"strings"
 
-	http "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/httptest"
-	"github.com/Carcraftz/fhttp/httputil"
+	http "github.com/nf066/fhttp"
+	"github.com/nf066/fhttp/httptest"
+	"github.com/nf066/fhttp/httputil"
 )
 
 func ExampleDumpRequest() {

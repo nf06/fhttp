@@ -32,10 +32,10 @@ import (
 	"testing"
 	"time"
 
-	http "github.com/Carcraftz/fhttp"
-	"github.com/Carcraftz/fhttp/http2/hpack"
-	"github.com/Carcraftz/fhttp/httptest"
-	"github.com/Carcraftz/fhttp/httptrace"
+	http "github.com/nf066/fhttp"
+	"github.com/nf066/fhttp/http2/hpack"
+	"github.com/nf066/fhttp/httptest"
+	"github.com/nf066/fhttp/httptrace"
 )
 
 var (
