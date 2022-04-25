@@ -681,16 +681,27 @@ func (t *transferReader) parseTransferEncoding() error {
 		return nil
 	}
 
-	// Like nginx, we only support a single Transfer-Encoding header field, and
-	// only if set to "chunked". This is one of the most security sensitive
-	// surfaces in HTTP/1.1 due to the risk of request smuggling, so we keep it
-	// strict and simple.
-	if len(raw) != 1 {
-		return &unsupportedTEError{fmt.Sprintf("too many transfer encodings: %q", raw)}
+	//ORIGINAL RESPONSE HANDLER FOR TRANSFER-ENCODING HEADERS
+	//// Like nginx, we only support a single Transfer-Encoding header field, and
+	//// only if set to "chunked". This is one of the most security sensitive
+	//// surfaces in HTTP/1.1 due to the risk of request smuggling, so we keep it
+	//// strict and simple.
+	//if len(raw) != 1 {
+	//	return &unsupportedTEError{fmt.Sprintf("too many transfer encodings: %q", raw)}
+	//}
+	//if strings.ToLower(textproto.TrimString(raw[0])) != "chunked" {
+	//	return &unsupportedTEError{fmt.Sprintf("unsupported transfer encoding: %q", raw[0])}
+	//}
+	//------
+	//NEW
+	// The only transfer encoding we support is "chunked". If it is specified
+	// multiple times, it is treated the same as if it were specified only once.
+	for _, v := range raw {
+		if strings.ToLower(textproto.TrimString(v)) != "chunked" {
+			return &unsupportedTEError{fmt.Sprintf("unsupported transfer encoding: %q", v)}
+		}
 	}
-	if strings.ToLower(textproto.TrimString(raw[0])) != "chunked" {
-		return &unsupportedTEError{fmt.Sprintf("unsupported transfer encoding: %q", raw[0])}
-	}
+	//--
 
 	// RFC 7230 3.3.2 says "A sender MUST NOT send a Content-Length header field
 	// in any message that contains a Transfer-Encoding header field."
